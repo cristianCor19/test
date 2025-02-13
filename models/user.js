@@ -1,6 +1,6 @@
-import mongoose,{model}  from "mongoose";
+import mongoose, { model } from "mongoose";
 
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
@@ -16,7 +16,13 @@ const userSchema = new Schema(
     password: {
       "type": "string",
       required: true,
-    }
+    },
+    projects: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
+      }
+    ]
   },
   {
     timestamps: true,
