@@ -11,7 +11,7 @@ npm start
 
 🔐 Autenticación
 📝 Registro de Usuario
-Endpoint: POST /user/register
+Endpoint: POST /user/save
 Descripción: Crea un nuevo usuario en el sistema y devuelve un token JWT.
 Body (JSON):{
   "name": "Juan Pérez",
@@ -28,6 +28,7 @@ Respuesta exitosa (201):{
 Endpoint: POST /auth/login
 Descripción: Inicia sesión y devuelve un token JWT.
 Body (JSON):{
+  "name: "juan",
   "email": "juanperez@example.com",
   "password": "P@ssw0rd123"
 }
@@ -38,16 +39,56 @@ Respuesta exitosa (200):{
 
 📂 Gestión de Proyectos
 📌 Crear Proyecto
-Endpoint: POST /project/create
+Endpoint: POST /project/save
+🔑 Requiere autenticación: ✅ Sí (Token JWT en Headers)
 Headers: 
 {
   "Authorization": "Bearer <token>"
 }
 
-{
-  "name": "Proyecto Ejemplo",
-  "creator": "65a72f9e4f1d8e001c12e345",
+Body (JSON):{
+  "name": "Proyecto Ejemplo"
 }
+
+📤 Respuesta exitosa (201):
+{
+  "status": true,
+  "project": {
+    "_id": "65a7306e4f1d8e001c12e678",
+    "name": "Proyecto Ejemplo",
+    "creator": "65a72f9e4f1d8e001c12e345",
+    "createdAt": "2025-02-12T10:00:00.000Z",
+    "updatedAt": "2025-02-12T10:00:00.000Z"
+  },
+  "message": "Proyecto creado"
+}
+
+📋 Obtener todos los proyectos del usuario
+📌 Endpoint: GET /project/
+🔑 Requiere autenticación: ✅ Sí (Token JWT en Headers)
+Headers: 
+{
+  "Authorization": "Bearer <token>"
+}
+
+📤 Respuesta exitosa (200):
+{
+  "status": true,
+  "projects": [
+    {
+      "_id": "65a7306e4f1d8e001c12e678",
+      "name": "Proyecto 1",
+      "creator": "65a72f9e4f1d8e001c12e345"
+    },
+    {
+      "_id": "65a7306e4f1d8e001c12e679",
+      "name": "Proyecto 2",
+      "creator": "65a72f9e4f1d8e001c12e345"
+    }
+  ]
+}
+
+
 
 📑 Paginación en el Buscador de Proyectos
 Endpoint: GET /project/search
@@ -75,9 +116,4 @@ Respuesta (200):
     "total": 2
   }
 }
-
-
-
-
-
 
