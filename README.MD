@@ -304,9 +304,7 @@ Headers: {
 }
 
 🔄 Propagar cambios a Movimientos y Proyectos
-Estos cambios son automáticos cuando se actualizan los valores de una línea.  
-La API calcula automáticamente la **utilidad presupuestada** y el **margen presupuestado** en los niveles superiores (Movimientos y Proyectos).
-
+Estos cambios son automáticos cuando se actualizan los valores de una línea. La API calcula automáticamente la utilidad presupuestada y el margen presupuestado en los niveles superiores (Movimientos y Proyectos).
 
 📌 Cálculo de valores:
 
