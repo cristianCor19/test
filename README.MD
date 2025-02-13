@@ -195,6 +195,133 @@ Headers: {
 }
 
 
+📂 Gestión de Líneas
+🚀 Crear una Línea
+📌 Endpoint: POST /line/save/:movementId/
+🔑 Requiere autenticación: ✅ Sí (Token JWT en Headers)
+
+Headers:{
+  "Authorization": "Bearer <token>"
+}
+
+📥 Body (JSON):{
+  "name": "Línea Ejemplo"
+}
+
+📤 Respuesta exitosa (201):{
+  "status": true,
+  "Linea": {
+    "_id": "65a7312f4f1d8e001c12e789",
+    "name": "Línea Ejemplo",
+    "movement": "65a7306e4f1d8e001c12e678",
+    "createdAt": "2025-02-12T10:00:00.000Z",
+    "updatedAt": "2025-02-12T10:00:00.000Z"
+  },
+  "message": "Línea creada"
+}
+
+📋 Obtener todas las líneas de un movimiento
+📌 Endpoint: GET /line/:movementId
+🔑 Requiere autenticación: ✅ Sí (Token JWT en Headers)
+
+Headers:{
+  "Authorization": "Bearer <token>"
+}
+
+📤 Respuesta exitosa (200): {
+  "status": true,
+  "Lineas": [
+    {
+      "_id": "65a7312f4f1d8e001c12e789",
+      "name": "Línea 1",
+      "movement": "65a7306e4f1d8e001c12e678"
+    },
+    {
+      "_id": "65a7313e4f1d8e001c12e790",
+      "name": "Línea 2",
+      "movement": "65a7306e4f1d8e001c12e678"
+    }
+  ]
+}
+
+🗑 Eliminar una o más líneas
+📌 Endpoint: DELETE /line/delete/:movementId
+🔑 Requiere autenticación: ✅ Sí (Token JWT en Headers)
+
+Headers: {
+  "Authorization": "Bearer <token>"
+}
+
+📥 Body (JSON):{
+  "LinesIds": ["65a7312f4f1d8e001c12e789", "65a7313e4f1d8e001c12e790"]
+}
+
+📤 Respuesta exitosa (200): {
+  "status": true,
+  "message": "líneas borradas correctamente"
+}
+
+🔄 Actualizar valores en una línea y propagar cambios
+📌 Endpoint: PUT /line/update/:lineId
+🔑 Requiere autenticación: ✅ Sí (Token JWT en Headers)
+
+Headers: {
+  "Authorization": "Bearer <token>"
+}
+
+📥 Body (JSON): {
+  "sumPrice": 1000,
+  "sumBudget": 800
+}
+
+📤 Respuesta exitosa (200):{
+  "status": true,
+  "line": {
+    "_id": "65a7312f4f1d8e001c12e789",
+    "name": "Línea Ejemplo",
+    "movement": "65a7306e4f1d8e001c12e678",
+    "numbers": {
+      "sumPrice": {
+        "number": 1000,
+        "value": "$ 1000.00"
+      },
+      "sumBudget": {
+        "number": 800,
+        "value": "$ 800.00"
+      },
+      "budgetUtility": {
+        "number": 200,
+        "value": "$ 200.00"
+      },
+      "budgetMargin": {
+        "number": 20,
+        "value": "20.00 %"
+      }
+    },
+    "updatedAt": "2025-02-12T11:00:00.000Z"
+  },
+  "message": "Línea actualizada y valores propagados"
+}
+
+🔄 Propagar cambios a Movimientos y Proyectos
+Estos cambios son automáticos cuando se actualizan los valores de una línea. La API calcula automáticamente la utilidad presupuestada y el margen presupuestado en los niveles superiores (Movimientos y Proyectos).
+
+📌 Cálculo de valores:
+
+Presupuesto total (sumBudget) = Suma de presupuestos de todas las líneas del movimiento.
+Precio total (sumPrice) = Suma de precios de todas las líneas del movimiento.
+Utilidad presupuestada = sumPrice - sumBudget
+Margen presupuestado = (utilidad presupuestada / sumPrice) * 100
+📌 La actualización de valores se propaga en cascada:
+✅ Línea → Movimiento → Proyecto
+
+
+
+
+
+
+
+
 
 
 
