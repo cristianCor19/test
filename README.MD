@@ -57,8 +57,6 @@ Body (JSON):{
     "_id": "65a7306e4f1d8e001c12e678",
     "name": "Proyecto Ejemplo",
     "creator": "65a72f9e4f1d8e001c12e345",
-    "createdAt": "2025-02-12T10:00:00.000Z",
-    "updatedAt": "2025-02-12T10:00:00.000Z"
   },
   "message": "Proyecto creado"
 }
@@ -88,6 +86,23 @@ Headers:
   ]
 }
 
+🗑 Eliminar uno o más proyectos
+📌 Endpoint: DELETE /project/delete
+🔑 Requiere autenticación: ✅ Sí (Token JWT en Headers)
+Headers: {
+  "Authorization": "Bearer <token>"
+}
+
+📥 Body (JSON):
+{
+  "projectIds": ["65a7306e4f1d8e001c12e678", "65a7306e4f1d8e001c12e679"]
+} 
+
+📤 Respuesta exitosa (200):
+{
+  "status": true,
+  "message": "proyectos borrados correctamente"
+}
 
 
 📑 Paginación en el Buscador de Proyectos
@@ -116,4 +131,70 @@ Respuesta (200):
     "total": 2
   }
 }
+
+
+📂 Gestión de Movimientos
+🚀 Crear un Movimiento
+📌 Endpoint: POST /movement/save/:projectId/
+🔑 Requiere autenticación: ✅ Sí (Token JWT en Headers)
+Headers: {
+  "Authorization": "Bearer <token>"
+}
+📥 Body (JSON)" {
+  "name": "Movimiento Ejemplo"
+}
+
+📤 Respuesta exitosa (201):{
+  "status": true,
+  "Movimiento": {
+    "_id": "65a7312f4f1d8e001c12e789",
+    "name": "Movimiento Ejemplo",
+    "project": "65a7306e4f1d8e001c12e678",
+    "createdAt": "2025-02-12T10:00:00.000Z",
+    "updatedAt": "2025-02-12T10:00:00.000Z"
+  },
+  "message": "Movimiento creado"
+}
+
+📋 Obtener todos los movimientos de un proyecto
+📌 Endpoint: GET /movement/:projectId
+🔑 Requiere autenticación: ✅ Sí (Token JWT en Headers)
+Headers: {
+  "Authorization": "Bearer <token>"
+}
+
+📤 Respuesta exitosa (200):{
+  "status": true,
+  "movements": [
+    {
+      "_id": "65a7312f4f1d8e001c12e789",
+      "name": "Movimiento 1",
+      "project": "65a7306e4f1d8e001c12e678"
+    },
+    {
+      "_id": "65a7313e4f1d8e001c12e790",
+      "name": "Movimiento 2",
+      "project": "65a7306e4f1d8e001c12e678"
+    }
+  ]
+}
+
+🗑 Eliminar uno o más movimientos
+📌 Endpoint: DELETE /movement/delete/:projectId
+🔑 Requiere autenticación: ✅ Sí (Token JWT en Headers)
+Headers: {
+  "Authorization": "Bearer <token>"
+}
+📥 Body (JSON): {
+  "movementIds": ["65a7312f4f1d8e001c12e789", "65a7313e4f1d8e001c12e790"]
+}
+
+📤 Respuesta exitosa (200):{
+  "status": true,
+  "message": "movimientos borrados correctamente"
+}
+
+
+
+
 
